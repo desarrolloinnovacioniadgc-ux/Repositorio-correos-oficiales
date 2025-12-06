@@ -5,118 +5,219 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Empresas - Contactos</title>
   <style>
-    body { 
-      font-family: Arial, sans-serif; 
-      padding: 20px; 
-      background: #f9f9f9;
+  /* ---- FONDO CYBER ANIMADO ---- */
+  body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background: #050a19;
+    background-image:
+      radial-gradient(circle at 20% 20%, rgba(0,255,255,0.08) 0, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(0,150,255,0.06) 0, transparent 40%);
+    color: #e5e5e5;
+    overflow-x: hidden;
+  }
+
+  /* Líneas tipo circuito */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background-image: 
+      linear-gradient(rgba(0,255,255,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,255,0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: gridMove 12s linear infinite;
+  }
+
+  @keyframes gridMove {
+    from { background-position: 0 0, 0 0; }
+    to { background-position: 0 40px, 40px 0; }
+  }
+
+  /* ---- TÍTULO ESTILO CYBER HACKER ---- */
+  h2 {
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #00eaff;
+    text-shadow:
+  0 0 4px #00eaff,
+  0 0 8px rgba(0,255,255,0.5),
+  0 0 16px rgba(0,255,255,0.3);
+
+
+  }
+
+  /* Campo de búsqueda */
+  input {
+    padding: 8px;
+    width: 100%;
+    margin-bottom: 15px;
+    border: 1px solid #0ff;
+    border-radius: 4px;
+    font-size: 16px;
+    background: rgba(0,0,0,0.4);
+    color: #0ff;
+    outline: none;
+  }
+  input::placeholder { color: #7de6ff; }
+
+  /* Contenedor tabla */
+  .table-container {
+    overflow-x: auto;
+  }
+
+  /* TABLA */
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    background: rgba(0,0,0,0.45);
+    backdrop-filter: blur(6px);
+    color: white;
+    box-shadow: 0 0 15px rgba(0,255,255,0.15);
+    min-width: 350px;
+  }
+
+  th, td {
+    border: 1px solid rgba(0,255,255,0.18);
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+  }
+
+  th {
+    background: rgba(0,255,255,0.08);
+    color: #00eaff;
+    cursor: pointer;
+  }
+
+  th:hover {
+    background: rgba(0,255,255,0.15);
+  }
+
+  img {
+    width: 50px;
+    height: auto;
+  }
+
+  .copy-item {
+    color: #00eaff;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  .copy-item:hover {
+    color: #00bcd4;
+  }
+
+  /* --- CÍRCULO BLANCO UNIFORME PARA TODAS LAS RESOLUCIONES --- */
+.logo-circle {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: white;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  margin: 0 auto;
+}
+
+.logo-circle img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+  /* --- Notificación Copiado --- */
+  #toast {
+    visibility: hidden;
+    min-width: 200px;
+    background-color: #0095b6;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 12px;
+    position: fixed;
+    z-index: 1000;
+    right: 20px;
+    bottom: 20px;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.5s, visibility 0.5s;
+    box-shadow: 0 0 10px rgba(0,255,255,0.5);
+  }
+
+  #toast.show {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  /* ---- Vista móvil tipo Cards ---- */
+  @media (max-width: 600px) {
+    table, thead, tbody, th, td, tr {
+      display: block;
     }
-    h2 {
-      margin-bottom: 10px;
-      text-align: center;
-    }
-    input {
-      padding: 8px;
-      width: 100%;
+    thead { display: none; }
+
+    tr {
+      background: rgba(0,0,0,0.5);
       margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 16px;
-    }
-    .table-container {
-      overflow-x: auto;
-    }
-    table { 
-      border-collapse: collapse; 
-      width: 100%; 
-      background: white;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      min-width: 350px;
-    }
-    th, td { 
-      border: 1px solid #ddd; 
-      padding: 10px; 
-      text-align: center;
-      font-size: 16px;
-    }
-    th { 
-      background: #f4f4f4; 
-      cursor: pointer;
-    }
-    th:hover {
-      background: #e1e1e1;
-    }
-    img {
-      width: 50px; 
-      height: auto; 
-    }
-    .copy-item {
-      color: #0073e6;
-      cursor: pointer;
-      text-decoration: underline;
-    }
-    .copy-item:hover {
-      color: #005bb5;
+      border: 1px solid rgba(0,255,255,0.2);
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,255,255,0.15);
+      padding: 10px;
     }
 
-    /* --- Notificación flotante --- */
-    #toast {
-      visibility: hidden;
-      min-width: 200px;
-      background-color: #333;
-      color: #fff;
-      text-align: center;
-      border-radius: 6px;
-      padding: 12px;
-      position: fixed;
-      z-index: 1;
-      right: 20px;
-      bottom: 20px;
+    td {
+      border: none;
+      text-align: left;
+      padding: 8px;
       font-size: 14px;
-      opacity: 0;
-      transition: opacity 0.5s, visibility 0.5s;
-    }
-    #toast.show {
-      visibility: visible;
-      opacity: 1;
     }
 
-    /* --- VISTA CARDS EN CELULAR --- */
-    @media (max-width: 600px) {
-      table, thead, tbody, th, td, tr {
-        display: block;
-      }
-      thead { display: none; } /* Oculta encabezados en móvil */
-      tr {
-        background: #fff;
-        margin-bottom: 15px;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-        padding: 10px;
-      }
-      td {
-        border: none;
-        text-align: left;
-        padding: 8px;
-        font-size: 14px;
-      }
-      td img {
-        width: 40px;
-        margin-right: 10px;
-      }
-      td:first-child {
-        text-align: center;
-      }
-      td:nth-child(2) {
-        font-weight: bold;
-        font-size: 16px;
-      }
-      td:nth-child(3) {
-        word-break: break-word;
-        color: #0073e6;
-      }
-    }
-  </style>
+/* Círculos blancos uniformes para todos los logos */
+.logo-circle {
+  width: 70px;               /* tamaño idéntico escritorio y móvil */
+  height: 70px;
+  border-radius: 50%;
+  background: white;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.4); /* opcional cyber */
+  box-sizing: border-box;
+}
+
+.logo-circle img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* Ajuste de tabla para que no se deforme en escritorio */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* ← clave para uniformidad */
+}
+
+td {
+  text-align: center;
+  padding: 15px;
+}
+
+  }
+</style>
+
 </head>
 <body>
   
@@ -140,322 +241,322 @@
       </thead>
       <tbody>
         <tr>
-          <td><img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Uala.png" alt="Logo Uala"></td>
+          <td><div class="logo-circle"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Uala.png" alt="Logo Uala"></div></td>
           <td>Uala</td>
           <td class="copy-item">legales.ar@uala.com.ar</td>
         </tr>
         <tr>
-          <td><img src="https://static.cdnlogo.com/logos/t/28/tarjeta-naranja.svg" alt="Logo Naranja Digital"></td>
+          <td><div class="logo-circle"><img src="https://static.cdnlogo.com/logos/t/28/tarjeta-naranja.svg" alt="Logo Naranja Digital"></div></td>
           <td>Naranja Digital</td>
           <td class="copy-item">notificaciones@naranja.com</td>
         </tr>
         <tr>
-          <td><img src="https://operation.naranjax.com/static/images/naranja.png" alt="Naranja X"></td>
+          <td><div class="logo-circle"><img src="https://operation.naranjax.com/static/images/naranja.png" alt="Naranja X"></div></td>
           <td>Naranja X</td>
           <td class="copy-item">https://operation.naranjax.com/justicia</td>
         </tr>
         <tr>
-          <td><img src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Logo_Macro.png" alt="Macro"></td>
+          <td><div class="logo-circle"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Logo_Macro.png" alt="Macro"></div></td>
           <td>Macro</td>
           <td class="copy-item">Se entrega personalmente el Oficio Judicial</td>
         </tr>
         <tr>
-          <td><img src="https://upload.wikimedia.org/wikipedia/commons/8/87/Banco_Naci%C3%B3n.png" alt="Nacion"></td>
+          <td><div class="logo-circle"><img src="https://upload.wikimedia.org/wikipedia/commons/8/87/Banco_Naci%C3%B3n.png" alt="Nacion"></div></td>
           <td>Nacion</td>
           <td class="copy-item">0089JUD@BNA.COM.AR</td>
         </tr>
         <tr>
-          <td><img src="https://landing.claro.com.ar/p/claropay/images/rich-preview.png" alt="Claro Pay"></td>
+          <td><div class="logo-circle"><img src="https://landing.claro.com.ar/p/claropay/images/rich-preview.png" alt="Claro Pay"></div></td>
           <td>Claro Pay</td>
           <td class="copy-item">oficiosjudiciales@claro.com.ar</td>
         </tr>
         <tr>
-          <td><img src="https://http2.mlstatic.com/static/org-img/homesnw/mercado-libre.png" alt="Mercado Libre"></td>
+          <td><div class="logo-circle"><img src="https://http2.mlstatic.com/static/org-img/homesnw/mercado-libre.png" alt="Mercado Libre"></div></td>
           <td>Mercado Libre/Pago</td>
           <td class="copy-item">notificaciones@mercadolibre.com</td>
         </tr>
         <tr>
-          <td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Logo_Banco_Galicia.svg/2560px-Logo_Banco_Galicia.svg.png" alt="Galicia"></td>
+          <td><div class="logo-circle"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Logo_Banco_Galicia.svg/2560px-Logo_Banco_Galicia.svg.png" alt="Galicia"></div></td>
           <td>Galicia</td>
           <td class="copy-item">https://appsbg.bancogalicia.com.ar/BGBAOficios/?_ga=2.249195969.796978799.1655822286-1711372577.1655293540</td>
         </tr>
         <tr>
-          <td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Banco_provincia_ba_logo.svg/1280px-Banco_provincia_ba_logo.svg.png" alt="Provincia de Buenos Aires"></td>
+          <td><div class="logo-circle"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Banco_provincia_ba_logo.svg/1280px-Banco_provincia_ba_logo.svg.png" alt="Provincia de Buenos Aires"></div></td>
           <td>Provincia de Buenos Aires</td>
           <td class="copy-item">oficioscaba@bpba.com.ar</td>
         </tr>
         <tr>
-          <td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Logo_Banco_Ciudad.svg/2560px-Logo_Banco_Ciudad.svg.png" alt="Ciudad"></td>
+          <td><div class="logo-circle"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Logo_Banco_Ciudad.svg/2560px-Logo_Banco_Ciudad.svg.png" alt="Ciudad"></div></td>
           <td>Ciudad</td>
           <td class="copy-item">oficiosJudiciales@bancociudad.com.ar</td>
         </tr>
         <tr>
-          <td><img src="https://cdn.prod.website-files.com/63091bbd808ef433808b70cd/632e1b2082f3115e13864757_Nosotros%20-%20Logo%20con%20shadow.webp" alt="Brubank"></td>
+          <td><div class="logo-circle"><img src="https://cdn.prod.website-files.com/63091bbd808ef433808b70cd/632e1b2082f3115e13864757_Nosotros%20-%20Logo%20con%20shadow.webp" alt="Brubank"></div></td>
           <td>Brubank</td>
           <td class="copy-item">oficios@brubank.com</td>
         </tr>
         <tr>
-          <td><img src="https://play-lh.googleusercontent.com/FAGzFGx-Ty7K925lvkt5-KlIxPTIABCVz1po7ZBuyVKfS6AKp4WQ08LoIOiGQWDHzqY" alt="Bind pagos"></td>
+          <td><div class="logo-circle"><img src="https://play-lh.googleusercontent.com/FAGzFGx-Ty7K925lvkt5-KlIxPTIABCVz1po7ZBuyVKfS6AKp4WQ08LoIOiGQWDHzqY" alt="Bind pagos"></div></td>
           <td>Bind pagos</td>
           <td class="copy-item">oficiosjudiciales@bancoindustrial.com.ar</td>
         </tr>
         <tr>
-          <td><img src="https://upload.wikimedia.org/wikipedia/commons/b/b2/Supervielle_logo14.png" alt="Supervielle"></td>
+          <td><div class="logo-circle"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b2/Supervielle_logo14.png" alt="Supervielle"></div></td>
           <td>Supervielle</td>
           <td class="copy-item">recepcionoficios@supervielle.com.ar</td>
         </tr>
         <tr>
-          <td><img src="https://cdn.prod.website-files.com/60354c551a7a53147e146127/629e3f74ebe9904674bd87e3_belo.png" alt="Belo"></td>
+          <td><div class="logo-circle"><img src="https://cdn.prod.website-files.com/60354c551a7a53147e146127/629e3f74ebe9904674bd87e3_belo.png" alt="Belo"></div></td>
           <td>Belo</td>
           <td class="copy-item">oficios@belo.app</td>
         </tr>
         <tr>
-          <td><img src="https://www.wavetransit.com/wp-content/uploads/2021/08/Facebook-logo.png" alt="Facebook"></td>
+          <td><div class="logo-circle"><img src="https://www.wavetransit.com/wp-content/uploads/2021/08/Facebook-logo.png" alt="Facebook"></div></td>
           <td>Facebook</td>
           <td class="copy-item">https://www.facebook.com/records/login/</td>
         </tr>
         <tr>
-          <td><img src="https://static.vecteezy.com/system/resources/previews/018/930/415/non_2x/instagram-logo-instagram-icon-transparent-free-png.png" alt="Instagram"></td>
+          <td><div class="logo-circle"><img src="https://static.vecteezy.com/system/resources/previews/018/930/415/non_2x/instagram-logo-instagram-icon-transparent-free-png.png" alt="Instagram"></div></td>
           <td>Instagram</td>
           <td class="copy-item">https://www.facebook.com/records/login/</td>
         </tr>
         <tr>
-          <td><img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp"></td>
+          <td><div class="logo-circle"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp"></div></td>
           <td>WhatsApp META</td>
           <td class="copy-item">https://www.whatsapp.com/records/login/</td>
         </tr>
         <tr>
-          <td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Movistar_isotype_2020.svg/langes-330px-Movistar_isotype_2020.svg.png" alt="Movistar"></td>
+          <td><div class="logo-circle"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Movistar_isotype_2020.svg/langes-330px-Movistar_isotype_2020.svg.png" alt="Movistar"></div></td>
           <td>Movistar</td>
           <td class="copy-item">reqjudiciales.ar@telefonica.com</td>
         </tr>
         <tr>
-          <td><img src="https://camfintech.hiringroomcampus.com/assets/media/camfintech/company_610c49004b8e562cac3e6f21.png" alt="Prex"></td>
+          <td><div class="logo-circle"><img src="https://camfintech.hiringroomcampus.com/assets/media/camfintech/company_610c49004b8e562cac3e6f21.png" alt="Prex"></div></td>
           <td>Prex</td>
           <td class="copy-item">legales@prexcard.com.ar</td>
         </tr>
         <tr>
-          <td><img src="https://iconlogovector.com/uploads/images/2025/02/lg-67bbf2fe07c59-AstroPay.webp" alt="Astro Pay"></td>
+          <td><div class="logo-circle"><img src="https://iconlogovector.com/uploads/images/2025/02/lg-67bbf2fe07c59-AstroPay.webp" alt="Astro Pay"></div></td>
           <td>Astro Pay</td>
           <td class="copy-item">contabilidad@fupetsa.com</td>
         </tr>
         <tr>
-          <td><img src="https://www.bizland.tech/img/bizland.png" alt="Bizland"></td>
+          <td><div class="logo-circle"><img src="https://www.bizland.tech/img/bizland.png" alt="Bizland"></div></td>
           <td>Bizland</td>
           <td class="copy-item">oficiosjudiciales@bizland.tech</td>
         </tr>
         <tr>
-          <td><img src="https://www.turismoandesmar.com/portals/1236/bleussaCode/assets/logos/alianzas/personalpay.png" alt="Personal Pay"></td>
+          <td><div class="logo-circle"><img src="https://www.turismoandesmar.com/portals/1236/bleussaCode/assets/logos/alianzas/personalpay.png" alt="Personal Pay"></div></td>
           <td>Personal Pay</td>
           <td class="copy-item">Fiscalia carga los Oficios Judiciales</td>
         </tr>
         <tr>
-          <td><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Renaper_%28logotipo%29.png" alt="Renaper"></td>
+          <td><div class="logo-circle"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Renaper_%28logotipo%29.png" alt="Renaper"></div></td>
           <td>Renaper</td>
           <td class="copy-item">oficios_alem150@renaper.gob.ar</td>
         </tr>
         <tr>
-          <td><img src="https://comparte-entity-photos.s3.us-east-2.amazonaws.com/876b31af-c8ca-4d15-91a3-743e09e5cb85.png" alt="Lemon"></td>
+          <td><div class="logo-circle"><img src="https://comparte-entity-photos.s3.us-east-2.amazonaws.com/876b31af-c8ca-4d15-91a3-743e09e5cb85.png" alt="Lemon"></div></td>
           <td>Lemon</td>
           <td class="copy-item">https://form.jotform.com/231774405436659</td>
         </tr>
         <tr>
-          <td><img src="https://sgfintech.com.ar/wp-content/uploads/2023/08/sg-11.png" alt="Agil Pagos"></td>
+          <td><div class="logo-circle"><img src="https://sgfintech.com.ar/wp-content/uploads/2023/08/sg-11.png" alt="Agil Pagos"></div></td>
           <td>Agil Pagos</td>
           <td class="copy-item">legales@srfintech.com.ar</td>
         </tr>
         <tr>
-          <td><img src="https://findoctor.com.ar/wp-content/uploads/elementor/thumbs/reba-p7gbvczx218c243cvobyaagmxaa9nd2dznztmev6a0.png" alt="Rebanking"></td>
+          <td><div class="logo-circle"><img src="https://findoctor.com.ar/wp-content/uploads/elementor/thumbs/reba-p7gbvczx218c243cvobyaagmxaa9nd2dznztmev6a0.png" alt="Rebanking"></div></td>
           <td>Rebanking</td>
           <td class="copy-item">legales@reba.com.ar</td>
         </tr>
         <tr>
-          <td><img src="https://upload.wikimedia.org/wikipedia/commons/5/57/Binance_Logo.png" alt="Binance"></td>
+          <td><div class="logo-circle"><img src="https://upload.wikimedia.org/wikipedia/commons/5/57/Binance_Logo.png" alt="Binance"></div></td>
           <td>Binance</td>
           <td class="copy-item">https://app.kodexglobal.com/binance/signup</td>
         </tr>
         <tr>
-          <td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/HBO_logo.svg/2560px-HBO_logo.svg.png" alt="HBO"></td>
+          <td><div class="logo-circle"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/HBO_logo.svg/2560px-HBO_logo.svg.png" alt="HBO"></div></td>
           <td>HBO</td>
           <td class="copy-item">soporte@hbomax.com</td>
         </tr>
         <tr>
-          <td><img src="https://newspack-hipertextual.s3.eu-west-3.amazonaws.com/wp-content/uploads/2011/05/telecom_personal_logo.png" alt="Personal"></td>
+          <td><div class="logo-circle"><img src="https://newspack-hipertextual.s3.eu-west-3.amazonaws.com/wp-content/uploads/2011/05/telecom_personal_logo.png" alt="Personal"></div></td>
           <td>Personal</td>
           <td class="copy-item">Fiscalia carga los Oficios Judiciales</td>
         </tr>
         <tr>
-          <td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Logo_de_Claro.svg/1200px-Logo_de_Claro.svg.png" alt="Claro"></td>
+          <td><div class="logo-circle"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Logo_de_Claro.svg/1200px-Logo_de_Claro.svg.png" alt="Claro"></div></td>
           <td>Claro</td>
           <td class="copy-item">Fiscalia carga los Oficios Judiciales</td>
         </tr>
         <tr>
-          <td><img src="https://coelsa.hiringroom.com/data/accounts/coelsa/profile.jpg?version=" alt="Coelsa"></td>
+          <td><div class="logo-circle"><img src="https://coelsa.hiringroom.com/data/accounts/coelsa/profile.jpg?version=" alt="Coelsa"></div></td>
           <td>Coelsa</td>
           <td class="copy-item">Fiscalia carga los Oficios Judiciales</td>
         </tr>
         <tr>
-          <td><img src="https://static.wixstatic.com/media/a0a27d_590f2ad412f94d16bde1bce4cceed959~mv2.jpeg/v1/fill/w_284,h_160,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Paxsys_001.jpeg" alt="Paxsys"></td>
+          <td><div class="logo-circle"><img src="https://static.wixstatic.com/media/a0a27d_590f2ad412f94d16bde1bce4cceed959~mv2.jpeg/v1/fill/w_284,h_160,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Paxsys_001.jpeg" alt="Paxsys"></div></td>
           <td>Paxsys</td>
           <td class="copy-item">hola@paxsys.finance</td>
         </tr>
         <tr>
-          <td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/512px-WhatsApp.svg.png" alt="WSS"></td>
+          <td><div class="logo-circle"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/512px-WhatsApp.svg.png" alt="WSS"></div></td>
           <td>WhatsApp Support</td>
           <td class="copy-item">support@whatsapp</td>
         </tr>
         <tr>
-          <td><img src="https://pago24.com.ar/img/pago-24-logo.png" alt="Patrol"></td>
+          <td><div class="logo-circle"><img src="https://pago24.com.ar/img/pago-24-logo.png" alt="Patrol"></div></td>
           <td>Patrol y asociados</td>
           <td class="copy-item">legales@trasa.com.ar</td>
         </tr>
         <tr>
-          <td><img src="https://media.licdn.com/dms/image/v2/D4D0BAQHopVQ7f2tVGg/company-logo_200_200/company-logo_200_200/0/1704809636419/al2argentina_logo?e=2147483647&v=beta&t=tGzF4VOBYrSWV92YYdztDPgEHRwsIG66IDRez4BRL38" alt="Fersi"></td>
+          <td><div class="logo-circle"><img src="https://media.licdn.com/dms/image/v2/D4D0BAQHopVQ7f2tVGg/company-logo_200_200/company-logo_200_200/0/1704809636419/al2argentina_logo?e=2147483647&v=beta&t=tGzF4VOBYrSWV92YYdztDPgEHRwsIG66IDRez4BRL38" alt="Fersi"></div></td>
           <td>Fersi</td>
           <td class="copy-item">fraude@al2.com.ar</td>
         </tr>
         <tr>
-          <td><img src="https://flowbite.com/docs/images/logo.svg" alt="digipayments"></td>
+          <td><div class="logo-circle"><img src="https://flowbite.com/docs/images/logo.svg" alt="digipayments"></div></td>
           <td>Digipayments</td>
           <td class="copy-item">legal@digipayments.com.ar</td>
         </tr>
         <tr>
-          <td><img src="https://play-lh.googleusercontent.com/bY8M7WDrCfe1OTUxu0D2nWwX2iUf5qEzJjFkzEUb3QpnMiTKC6jgBL-IEPlCeBaQRuI=w480-h960-rw" alt="garpa"></td>
+          <td><div class="logo-circle"><img src="https://play-lh.googleusercontent.com/bY8M7WDrCfe1OTUxu0D2nWwX2iUf5qEzJjFkzEUb3QpnMiTKC6jgBL-IEPlCeBaQRuI=w480-h960-rw" alt="garpa"></div></td>
           <td>Garpa</td>
           <td class="copy-item">cumplimiento.ar@garpa.money</td>
         </tr>
         <tr>
-          <td><img src="https://upload.wikimedia.org/wikipedia/commons/4/47/Red_link_logo.png" alt="redlink"></td>
+          <td><div class="logo-circle"><img src="https://upload.wikimedia.org/wikipedia/commons/4/47/Red_link_logo.png" alt="redlink"></div></td>
           <td>Red Link</td>
           <td class="copy-item">investigacionespf@redlink.com.ar</td>
         </tr>
         <tr>
-          <td><img src="https://pbs.twimg.com/profile_images/1526617966221135872/VGAH58T-_400x400.jpg" alt="comafi"></td>
+          <td><div class="logo-circle"><img src="https://pbs.twimg.com/profile_images/1526617966221135872/VGAH58T-_400x400.jpg" alt="comafi"></div></td>
           <td>Comafi</td>
           <td class="copy-item">Legales@comafi.com.ar</td>
         </tr>
         <tr>
-          <td><img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/BBVA_Franc%C3%A9s_wordmark.svg" alt="frances"></td>
+          <td><div class="logo-circle"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/BBVA_Franc%C3%A9s_wordmark.svg" alt="frances"></div></td>
           <td>Frances</td>
           <td class="copy-item">recepcionoficios-arg@bbva.com</td>
         </tr>
         <tr>
-          <td><img src="https://static.vecteezy.com/system/resources/previews/027/127/495/non_2x/bank-of-america-logo-bank-of-america-icon-transparent-free-png.png" alt="america"></td>
+          <td><div class="logo-circle"><img src="https://static.vecteezy.com/system/resources/previews/027/127/495/non_2x/bank-of-america-logo-bank-of-america-icon-transparent-free-png.png" alt="america"></div></td>
           <td>America</td>
           <td class="copy-item">dantonini@bofa.com</td>
         </tr>
         <tr>
-          <td><img src="https://lh4.googleusercontent.com/proxy/dkJIgSCY21ODR_tfKoVLJ9HNdUIfit0whn07ZN_5sLLKdQccELMyqnf3DM3unroqoz3cH9LrfR5rxkzCU_6mC6NZhvMqsJwUtZH9dNzcFfVNftx1Kbof" alt="coinag"></td>
+          <td><div class="logo-circle"><img src="https://lh4.googleusercontent.com/proxy/dkJIgSCY21ODR_tfKoVLJ9HNdUIfit0whn07ZN_5sLLKdQccELMyqnf3DM3unroqoz3cH9LrfR5rxkzCU_6mC6NZhvMqsJwUtZH9dNzcFfVNftx1Kbof" alt="coinag"></div></td>
           <td>Coinag</td>
           <td class="copy-item">cmeroi@bancocoinag.com</td>
         </tr>
         <tr>
-          <td><img src="https://callao.io/assets/logo/logo-sm-blue.png" alt="callao"></td>
+          <td><div class="logo-circle"><img src="https://callao.io/assets/logo/logo-sm-blue.png" alt="callao"></div></td>
           <td>Callao</td>
           <td class="copy-item">oficiosjudiciales@bizland.tech</td>
         </tr>
         <tr>
-          <td><img src="https://www.vusecurity.com/hubfs/Banco%20Columbia-1.png" alt="columbia"></td>
+          <td><div class="logo-circle"><img src="https://www.vusecurity.com/hubfs/Banco%20Columbia-1.png" alt="columbia"></div></td>
           <td>Columbia</td>
           <td class="copy-item">notificaciones_electronicas@bancocolumbia.com.ar</td>
         </tr>
         <tr>
-          <td><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmPa-WJWaUmXXQ8tIsaH6GZLVNuuURN93fFg&s" alt="pampa"></td>
+          <td><div class="logo-circle"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmPa-WJWaUmXXQ8tIsaH6GZLVNuuURN93fFg&s" alt="pampa"></div></td>
           <td>La Pampa</td>
           <td class="copy-item">alegales@blp.com.ar</td>
         </tr>
         <tr>
-          <td><img src="https://nytecla.com/wp-content/uploads/2024/02/Logo-Cliente-1-300x300.jpg" alt="sanjuan"></td>
+          <td><div class="logo-circle"><img src="https://nytecla.com/wp-content/uploads/2024/02/Logo-Cliente-1-300x300.jpg" alt="sanjuan"></div></td>
           <td>San Juan</td>
           <td class="copy-item">ordenesjudiciales@bancosanjuan.com</td>
         </tr>
         <tr>
-          <td><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoQrfXCrxGFqKXsQnlkdeE5eIXlLRj-dY4BA&s" alt="santacruz"></td>
+          <td><div class="logo-circle"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoQrfXCrxGFqKXsQnlkdeE5eIXlLRj-dY4BA&s" alt="santacruz"></div></td>
           <td>Santa Cruz</td>
           <td class="copy-item">oficiosjudicialessantacruz@bancosantacruz.com</td>
         </tr>
         <tr>
-          <td><img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Logo-santafe5.jpg" alt="santafe"></td>
+          <td><div class="logo-circle"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Logo-santafe5.jpg" alt="santafe"></div></td>
           <td>Santa Fe</td>
           <td class="copy-item">oficiosjudiciales@bancobsf.com.ar</td>
         </tr>
         <tr>
-          <td><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Logo_BSE.png" alt="santiago"></td>
+          <td><div class="logo-circle"><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Logo_BSE.png" alt="santiago"></div></td>
           <td>Santiago del Estero</td>
           <td class="copy-item">mmurguitio@bse.com.ar</td>
         </tr>
         <tr>
-          <td><img src="https://ucaecono.hiringroomcampus.com/assets/media/ucaecono/company_61046cc24b8e5666ca7a61f1.jpg" alt="valores"></td>
+          <td><div class="logo-circle"><img src="https://ucaecono.hiringroomcampus.com/assets/media/ucaecono/company_61046cc24b8e5666ca7a61f1.jpg" alt="valores"></div></td>
           <td>de Valores</td>
           <td class="copy-item">legales@bancodevalores.com</td>
         </tr>
         <tr>
-          <td><img src="https://imtconferences.com/wp-content/uploads/2015/11/giros-andesmar-imtc.jpg" alt="girosexpres"></td>
+          <td><div class="logo-circle"><img src="https://imtconferences.com/wp-content/uploads/2015/11/giros-andesmar-imtc.jpg" alt="girosexpres"></div></td>
           <td>Giros Express</td>
           <td class="copy-item">mesadeentradalegales@andesmar.com.ar</td>
         </tr>
         <tr>
-          <td><img src="https://www.hiperconstruccion.com.ar/wp-content/uploads/2020/08/HIPOTECARIO-PNG.png" alt="hipotecario"></td>
+          <td><div class="logo-circle"><img src="https://www.hiperconstruccion.com.ar/wp-content/uploads/2020/08/HIPOTECARIO-PNG.png" alt="hipotecario"></div></td>
           <td>Hipotecario</td>
           <td class="copy-item">OFICIOSYREQUERIMIENTOSBHSA@hipotecario.com.ar</td>
         </tr>
         <tr>
-          <td><img src="https://upload.wikimedia.org/wikipedia/commons/d/da/ICBC_Bank_logo.png" alt="icbc"></td>
+          <td><div class="logo-circle"><img src="https://upload.wikimedia.org/wikipedia/commons/d/da/ICBC_Bank_logo.png" alt="icbc"></div></td>
           <td>ICBC</td>
           <td class="copy-item">notificaciones.oficiosjudiciales@icbc.com.ar</td>
         </tr>
         <tr>
-          <td><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0ToBEhp8hIxfOzvL9_t_xkuh1qZXwLKdTcQ&s" alt="industrial"></td>
+          <td><div class="logo-circle"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0ToBEhp8hIxfOzvL9_t_xkuh1qZXwLKdTcQ&s" alt="industrial"></div></td>
           <td>Industrial</td>
           <td class="copy-item">porozco@bancoindustrial.com.ar</td>
         </tr>
         <tr>
-          <td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Banco_Ita%C3%BA_logo.svg/250px-Banco_Ita%C3%BA_logo.svg.png" alt="itau"></td>
+          <td><div class="logo-circle"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Banco_Ita%C3%BA_logo.svg/250px-Banco_Ita%C3%BA_logo.svg.png" alt="itau"></div></td>
           <td>Itau</td>
           <td class="copy-item">grupo_oficios_judiciales@itau.com.ar</td>
         </tr>
         <tr>
-          <td><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKLX4DcSm3c0eaEgPqmAvv5kBSfkOVtKsTeA&s" alt="patagonia"></td>
+          <td><div class="logo-circle"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKLX4DcSm3c0eaEgPqmAvv5kBSfkOVtKsTeA&s" alt="patagonia"></div></td>
           <td>Patagonia</td>
           <td class="copy-item">asimon@bancopatagonia.com.ar</td>
         </tr>
         <tr>
-          <td><img src="https://static.vecteezy.com/system/resources/previews/027/127/470/non_2x/roblox-logo-roblox-icon-transparent-free-png.png" alt="roblox"></td>
+          <td><div class="logo-circle"><img src="https://static.vecteezy.com/system/resources/previews/027/127/470/non_2x/roblox-logo-roblox-icon-transparent-free-png.png" alt="roblox"></div></td>
           <td>Roblox</td>
           <td class="copy-item">https://app.kodexglobal.com/roblox/signup</td>
         </tr>
         <tr>
-          <td><img src="https://i.pinimg.com/736x/b3/51/c9/b351c90f02b294dcef9d3a0d17eb6a19.jpg" alt="rappi"></td>
+          <td><div class="logo-circle"><img src="https://i.pinimg.com/736x/b3/51/c9/b351c90f02b294dcef9d3a0d17eb6a19.jpg" alt="rappi"></div></td>
           <td>Rappi</td>
           <td class="copy-item">ramiro.sbrolla@rappi.com.ar</td>
         </tr>
         <tr>
-          <td><img src="https://images.seeklogo.com/logo-png/36/1/pedidos-ya-logo-png_seeklogo-369550.png" alt="pedidoya"></td>
+          <td><div class="logo-circle"><img src="https://images.seeklogo.com/logo-png/36/1/pedidos-ya-logo-png_seeklogo-369550.png" alt="pedidoya"></div></td>
           <td>Pedidos Ya</td>
           <td class="copy-item">contacto@pedidosya.com</td>
         </tr>
         <tr>
-          <td><img src="https://assets.mobile.develop.playdigital.com.ar/images/banks/modo.png" alt="modo"></td>
+          <td><div class="logo-circle"><img src="https://assets.mobile.develop.playdigital.com.ar/images/banks/modo.png" alt="modo"></div></td>
           <td>Modo</td>
           <td class="copy-item">oficios@modo.com.ar</td>
         </tr>
         <tr>
-          <td><img src="https://www.santander.com.ar/api/images/logo_santander_b82a48b6bf.png" alt="Santander"></td>
+          <td><div class="logo-circle"><img src="https://www.santander.com.ar/api/images/logo_santander_b82a48b6bf.png" alt="Santander"></div></td>
           <td>Santander Rio</td>
           <td class="copy-item">https://www.santander.com.ar/forms/buzon-oficios/</td>
         </tr>
         <tr>
-          <td><img src="https://is2-ssl.mzstatic.com/image/thumb/Purple118/v4/df/dc/f4/dfdcf471-8792-5333-e01a-54c8469c22f7/source/512x512bb.jpg" alt="Prisma"></td>
+          <td><div class="logo-circle"><img src="https://is2-ssl.mzstatic.com/image/thumb/Purple118/v4/df/dc/f4/dfdcf471-8792-5333-e01a-54c8469c22f7/source/512x512bb.jpg" alt="Prisma"></div></td>
           <td>Prisma</td>
           <td class="copy-item">Oficiosjudiciales@Prismamp.com</td>
         </tr>
         <tr>
-          <td><img src="https://media.giphy.com/avatars/wilobank/pbLvyuEsGRDF.png" alt="wilo"></td>
+          <td><div class="logo-circle"><img src="https://media.giphy.com/avatars/wilobank/pbLvyuEsGRDF.png" alt="wilo"></div></td>
           <td>Wilobank</td>
           <td class="copy-item">oficios.judiciales@wilobank.com</td>
         </tr>
         <tr>
-          <td><img src="https://w7.pngwing.com/pngs/280/326/png-transparent-logo-netflix-logos-and-brands-icon-thumbnail.png" alt="netflix"></td>
+          <td><div class="logo-circle"><img src="https://w7.pngwing.com/pngs/280/326/png-transparent-logo-netflix-logos-and-brands-icon-thumbnail.png" alt="netflix"></div></td>
           <td>Netflix</td>
           <td class="copy-item">https://leportal.netflix.com/es</td>
         </tr>
@@ -520,8 +621,126 @@
       });
     });
   </script>
+  <canvas id="particles"></canvas>
+
+<script>
+    const canvas = document.getElementById("particles");
+    const ctx = canvas.getContext("2d");
+
+    canvas.style.position = "fixed";
+    canvas.style.top = 0;
+    canvas.style.left = 0;
+    canvas.style.width = "100%";
+    canvas.style.height = "100%";
+    canvas.style.zIndex = "-1";
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+
+    window.addEventListener("resize", resizeCanvas);
+
+    let particlesArray = [];
+
+    // Detectar si es móvil
+    const isMobile = window.innerWidth < 768;
+
+    // Ajustes para móvil
+    const numberOfParticles = isMobile ? 50 : 120;
+    const connectionDistance = isMobile ? 100 : 150;
+    const mouseInfluence = isMobile ? 80 : 120;
+
+    const mouse = { x: null, y: null };
+
+    window.addEventListener("mousemove", function (e) {
+        mouse.x = e.x;
+        mouse.y = e.y;
+    });
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.z = Math.random() * (isMobile ? 1.5 : 3) + 0.5;
+
+            this.size = this.z;
+            this.speedX = (Math.random() - 0.5) * this.z * 0.5;
+            this.speedY = (Math.random() - 0.5) * this.z * 0.5;
+
+            this.color = `rgba(0,255,255,${0.3 + Math.random() * 0.5})`;
+        }
+
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+
+            if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+            if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+
+            const dx = mouse.x - this.x;
+            const dy = mouse.y - this.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < mouseInfluence) {
+                this.x -= dx / 70;
+                this.y -= dy / 70;
+            }
+        }
+
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = this.color;
+            ctx.fill();
+        }
+    }
+
+    function initParticles() {
+        particlesArray = [];
+        for (let i = 0; i < numberOfParticles; i++) {
+            particlesArray.push(new Particle());
+        }
+    }
+
+    function animate() {
+        // Fondo azul profundo
+        ctx.fillStyle = "rgba(5, 10, 25, 1)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        for (let i = 0; i < particlesArray.length; i++) {
+            const p1 = particlesArray[i];
+            p1.update();
+            p1.draw();
+
+            for (let j = i + 1; j < particlesArray.length; j++) {
+                const p2 = particlesArray[j];
+                const dx = p1.x - p2.x;
+                const dy = p1.y - p2.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist < connectionDistance) {
+                    ctx.strokeStyle = `rgba(0,255,255,${1 - dist / connectionDistance})`;
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(p1.x, p1.y);
+                    ctx.lineTo(p2.x, p2.y);
+                    ctx.stroke();
+                }
+            }
+        }
+
+        requestAnimationFrame(animate);
+    }
+
+    initParticles();
+    animate();
+</script>
+
 </body>
 </html>
+
 
 
 
